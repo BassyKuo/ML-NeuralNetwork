@@ -17,7 +17,7 @@ For example,
 $ python3 main.py train --epoch 10000 --lr 0.01 --lam 0 --depth 3 > out.txt
 ```
 
-### Usage of Training Phase
+* Usage of Training Phase
 ```
 $ python3 main.py train
 
@@ -43,15 +43,18 @@ Test Error: 29.462166641014022
 
 >> Record `depth`, `lambda`, `val_loss`, `test_loss`, `epoch`, 'sizes' for each thread in log/table-10000ep-06192336.txt
 ```
-> __[ Train multi-layers or regularization parameter simultaneously ]:__
+> __[ Train multi-layers or regularization parameter simultaneously ]__
+> change the value of `depth_trace` and `lam_trace`, the range in [1, 5]:
+>
 > ```python
-> #./main.py
-> depth_trace = 1	# the number of different depth sizes for training (between 1 ~ 5)
-> lam_trace	= 1		# the number of different lambda for training (between 1 ~ 5)
+> # in ./main.py
+> # line 47~48
+> depth_trace = 1   # the number of different depth sizes for training (between 1 ~ 5)
+> lam_trace   = 1   # the number of different lambda for training (between 1 ~ 5)
 > ```
 
 
-### Usage of Testing Phase
+* Usage of Testing Phase
 ```
 $ python3 main.py test
 
@@ -63,6 +66,8 @@ Test Error: 2.714527031447499
 
 
 ## Data Format
+Only data feature and data label. No header row. 
+As below:
 ```
 <label>,<feature_1>,<feature_2>, ... ,<feature_n>
 ```
