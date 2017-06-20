@@ -44,12 +44,13 @@ import time
 
 timer = time.strftime("%m%d%H%M", time.localtime())
 
-depth_trace = 1
-lam_trace	= 1
+depth_trace = 1		# the number of different depth sizes for training (between 1 ~ 5)
+lam_trace	= 1		# the number of different lambda for training (between 1 ~ 5)
+
 output_file = 'SGD_hypothesis_header.csv'
 
 th_param = {
-		'loss'  : [None] * 200,
+		'loss'  : [None] * depth_trace * lam_trace * 10,
 		'test'  : {},
 		'depth' : {},
 		'lam'	: {},
@@ -143,9 +144,9 @@ def main(args):
 
 	for th_id in range(n * depth_trace * lam_trace):
 		th[th_id].join()
-	print("Loss: ", th_param['loss'])
-	print("Depth: ", th_param['depth'])
-	print("Lam: ", th_param['lam'])
+	# print("Loss: ", th_param['loss'])
+	# print("Depth: ", th_param['depth'])
+	# print("Lam: ", th_param['lam'])
 
 	OPT = np.argmin(th_param['loss'][:n * depth_trace * lam_trace])
 	h_test = Hypothesis(th_param['W'][OPT], th_param['b'][OPT])
@@ -222,7 +223,8 @@ def train(options, th_id):
 		h.train(xcv[i], ycv[i], lr, lam)
 
 		R = h.error(xva[:], yva[:])
-		print("[Thread-{}][epoch {}]	Val Loss: {}".format(th_id, ep, R))
+		if ep % 100:
+			print("[Thread-{}][epoch {}]	Val Loss: {}".format(th_id, ep, R))
 		if R < R_opt:
 			R_opt = R
 			opt = {
