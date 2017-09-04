@@ -56,12 +56,12 @@ class Hypothesis:
                                 |                      |_____________ backward pass
                                 |_______________ forward pass
     
-                                    ||	
-                 sigmoid			||	
-            z(t) -------> a(t) --->	|| ---> a(t) -------> z(t+1)
-                                    ||			  W(t)
-                                    ||	
-                                    ||	
+                                    ||
+                 sigmoid            ||
+            z(t) -------> a(t) ---> || ---> a(t) -------> z(t+1)
+                                    ||             W(t)
+                                    ||
+                                    ||
 
         - forward pass
             : because a(t)*W(t) = z(t+1), the forward pass = a(t)
@@ -97,11 +97,11 @@ class Hypothesis:
         de_a = {}
         ### BACKWARD ###
         #------------------------------------#
-        # a[t]			: (1, K[t] + 1)
-        # delta[t]		: (1, K[t] + 1)
-        # delta[t+1]	: (1, K[t+1] + 1)
+        # a[t]          : (1, K[t] + 1)
+        # delta[t]      : (1, K[t] + 1)
+        # delta[t+1]    : (1, K[t+1] + 1)
         # desigmoid[t+1]: (1, K[t+1] + 1)
-        # W[t]			: (K[t] + 1, K[t+1])
+        # W[t]          : (K[t] + 1, K[t+1])
         #------------------------------------#
         ### delta(T) ###
         delta[depth] = deloss(a[depth], y)
